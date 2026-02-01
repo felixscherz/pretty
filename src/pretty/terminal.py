@@ -18,6 +18,9 @@ def main():
     if pid == 0:
         # child process
 
+        os.dup2(client, 0) # stdin
+        os.dup2(client, 1) # stdout
+        os.dup2(client, 2) # stderr
         os.execv("/bin/zsh", ["/bin/zsh"])
         time.sleep(5)
         assert_never()
