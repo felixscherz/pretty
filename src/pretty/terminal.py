@@ -40,7 +40,10 @@ def main():
             r, _, _ = select.select([controller], [], [], 0.1)
             if r:
                 data = os.read(r[0], 1024)
-                print(data)
+                # don't print, this would include the ANSI escape sequences
+                # print(data)
+                sys.stdout.buffer.write(data)
+                sys.stdout.buffer.flush()
 
 
 
