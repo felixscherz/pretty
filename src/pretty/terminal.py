@@ -21,7 +21,9 @@ def main():
         os.dup2(client, 0) # stdin
         os.dup2(client, 1) # stdout
         os.dup2(client, 2) # stderr
-        os.execv("/bin/zsh", ["/bin/zsh"])
+        env = os.environ.copy()
+        env["PS1"] = "MY-CUSTOM-PROMPT%  "
+        os.execve("/bin/zsh", ["/bin/zsh", "-f"], env)
         assert_never()
 
     # main process
