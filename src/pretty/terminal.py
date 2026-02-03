@@ -5,9 +5,6 @@ import sys
 import threading
 from typing import assert_never
 
-# 1. get a pty
-# 2. fork the process
-
 
 def main():
     # this opens a pair of file descriptors
@@ -26,8 +23,6 @@ def main():
         env["PS1"] = "MY-CUSTOM-PROMPT%  "
         os.execve("/bin/zsh", ["/bin/zsh", "-f"], env)
         assert_never()
-
-    # main process
 
     def read_from_stdin():
         while True:
